@@ -3,16 +3,9 @@ package synteticsashka.service;
 import synteticsashka.model.Role;
 
 import java.util.List;
+import java.util.Set;
 
 public interface RoleService {
-
-    void addRole(Role role);
-
-    void deleteRole(long id);
-
-    List<Role> getRoles();
-
-    Role getRoleById(long id);
-
-    Role getRoleByName(String rolename);
+    void createRoles(Set<Role> roles);
+    Set<Role> getAllRoles();
 }

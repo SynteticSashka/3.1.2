@@ -1,50 +1,39 @@
 package synteticsashka.service;
 
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import synteticsashka.model.Role;
 import synteticsashka.model.User;
 
 import javax.annotation.PostConstruct;
-import java.util.List;
 import java.util.Set;
 
 @Component
+@Transactional
 public class DBInitializer {
-    private final UserService userService;
-    private final RoleService roleService;
 
-    public DBInitializer(UserService userService, RoleService roleService) {
+    private UserService userService;
+
+    public DBInitializer(UserService userService) {
         this.userService = userService;
-        this.roleService = roleService;
     }
 
     @PostConstruct
-    private void init() {
-        roleService.addRole(new Role("ADMIN"));
-        roleService.addRole(new Role("USER"));
-
-        User commonUser = new User();
-        commonUser.setName("CommonUserName");
-        commonUser.setLastName("CommonUserLastName");
-        commonUser.setEmail("user@email.com");
-        commonUser.setPassword("CommonUserPassword");
-        commonUser.setRoles(Set.of(roleService.getRoleByName("USER")));
-        userService.updateUser(commonUser);
-
-        User uncommonUser = new User();
-        uncommonUser.setName("UncommonUserName");
-        uncommonUser.setLastName("UncommonUserLastName");
-        uncommonUser.setEmail("user@email.com");
-        uncommonUser.setPassword("UncommonUserPassword");
-        uncommonUser.setRoles(Set.of(roleService.getRoleByName("ADMIN"), roleService.getRoleByName("USER")));
-        userService.updateUser(uncommonUser);
-
+    public void initUsers() {
         User admin = new User();
-        admin.setName("AdminName");
-        admin.setLastName("AdminLastName");
+        admin.setName("Name");
+        admin.setLastName("Last Name");
         admin.setEmail("admin@email.com");
-        admin.setPassword("AdminPassword");
-        admin.setRoles(Set.of(roleService.getRoleByName("ADMIN")));
-        userService.updateUser(admin);
+        admin.setPassword("admin");
+        admin.setRoles(Set.of(new Role("ADMIN"), new Role("USER")));
+        userService.createUser(admin);
+
+        User user = new User();
+        user.setName("UserName");
+        user.setLastName("UserLastName");
+        user.setEmail("user@email.com");
+        user.setPassword("user");
+        user.setRoles(Set.of(new Role("USER")));
+        userService.createUser(user);
     }
 }
