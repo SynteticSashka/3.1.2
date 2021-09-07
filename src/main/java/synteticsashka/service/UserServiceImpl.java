@@ -1,5 +1,6 @@
 package synteticsashka.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,9 +16,9 @@ import java.util.Optional;
 @Transactional
 public class UserServiceImpl implements UserService, UserDetailsService {
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-
-    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public UserServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
