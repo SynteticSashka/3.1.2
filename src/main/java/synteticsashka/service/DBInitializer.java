@@ -25,7 +25,7 @@ public class DBInitializer {
         admin.setLastName("Last Name");
         admin.setEmail("admin@email.com");
         admin.setPassword("admin");
-        admin.setRoles(Set.of(new Role("ADMIN"), new Role("USER")));
+        admin.setRoles(Set.of(new Role("ADMIN")));
         userService.createUser(admin);
 
         User user = new User();

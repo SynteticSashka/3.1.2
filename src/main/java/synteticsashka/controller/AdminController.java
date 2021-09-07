@@ -5,13 +5,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import synteticsashka.model.Role;
 import synteticsashka.model.User;
 import synteticsashka.service.RoleService;
 import synteticsashka.service.UserService;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Controller
 public class AdminController {
@@ -36,7 +32,7 @@ public class AdminController {
 
     @PostMapping("/create")
     public String createUser(@ModelAttribute User user) {
-        userService.updateUser(user);
+        userService.createUser(user);
         return "redirect:/admin";
     }
 
